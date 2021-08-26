@@ -24,3 +24,16 @@ describe('demo routes', () => {
     expect(res.body).toEqual({ id: '1', username: 'bob' });
   });
 });
+
+it('login a user', async() => {
+  const res = await agent
+    .post('/api/v1/auth/login')
+    .send({
+      username: 'bill',
+      password: 'password'
+    });
+
+  expect(res.body).toEqual({ id: '2', username: 'bill' });
+});
+
+

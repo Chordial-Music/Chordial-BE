@@ -65,5 +65,13 @@ it('finds all sequences', async () => {
     { id: '3', sequence: ['Ab', 'Bb', 'F'] },
     { id: '4', sequence: ['Bb', 'F', 'C'] }
   ]);
+});
 
+it('finds a sequence by id', async () => {
+  const sequence = await agent
+    .post('/api/v1/sequences')
+    .send({ userId: '2', sequence: ['Bb', 'F', 'C'] });
+
+  const res = await request(app).get(`/api/v1/sequences/${sequence.body.id}`);
+  expect(res.body).toEqual({ id: '5', userId: 2, sequence: ['Bb', 'F', 'C'] });
 });

@@ -8,5 +8,6 @@ CREATE TABLE users (
 
 CREATE TABLE sequences (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  sequences text[]
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  sequence TEXT []
 );

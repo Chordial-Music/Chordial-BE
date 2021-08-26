@@ -36,4 +36,12 @@ it('login a user', async() => {
   expect(res.body).toEqual({ id: '2', username: 'bill' });
 });
 
+it('creates a sequence', async() => {
+  const res = await agent
+    .post('/api/v1/sequences')
+    .send({ userId: '1', sequence: ['A', 'B', 'C'] });
+
+  expect(res.body).toEqual({ id: '1', userId: 1, sequence: ['A', 'B', 'C'] });
+});
+
 

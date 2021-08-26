@@ -25,7 +25,7 @@ describe('demo routes', () => {
   });
 });
 
-it('login a user', async() => {
+it('login a user', async () => {
   const res = await agent
     .post('/api/v1/auth/login')
     .send({
@@ -36,7 +36,7 @@ it('login a user', async() => {
   expect(res.body).toEqual({ id: '2', username: 'bill' });
 });
 
-it('creates a sequence', async() => {
+it('creates a sequence', async () => {
   const res = await agent
     .post('/api/v1/sequences')
     .send({ userId: '1', sequence: ['A', 'B', 'C'] });
@@ -44,4 +44,26 @@ it('creates a sequence', async() => {
   expect(res.body).toEqual({ id: '1', userId: 1, sequence: ['A', 'B', 'C'] });
 });
 
+it('finds all sequences', async () => {
+  await agent
+    .post('/api/v1/sequences')
+    .send({ userId: '1', sequence: ['A', 'B', 'C'] });
 
+  await agent
+    .post('/api/v1/sequences')
+    .send({ userId: '1', sequence: ['Ab', 'Bb', 'F'] });
+
+  await agent
+    .post('/api/v1/sequences')
+    .send({ userId: '2', sequence: ['Bb', 'F', 'C'] });
+
+  const res = await request(app).get('/api/v1/sequences');
+
+  expect(res.body).toEqual([
+    { id: '1', sequence: ['A', 'B', 'C'] },
+    { id: '2', sequence: ['A', 'B', 'C'] },
+    { id: '3', sequence: ['Ab', 'Bb', 'F'] },
+    { id: '4', sequence: ['Bb', 'F', 'C'] }
+  ]);
+
+});

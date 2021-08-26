@@ -12,14 +12,15 @@ describe('demo routes', () => {
 
   it('signs up user', async () => {
     const user = {
+      id: '1',
       username: 'bob',
-      password: 'fourtwenty'
+      password: 'password',
     };
 
     const res = await request(app)
-      .post('api/v1/auth/signup')
+      .post('/api/v1/auth/signup')
       .send(user);
 
-    expect(res.body).toEqual({ id: '1', ...user });
+    expect(res.body).toEqual({ id: '1', username: 'bob' });
   });
 });

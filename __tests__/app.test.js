@@ -79,13 +79,14 @@ it('finds a sequence by id', async () => {
 it('updates a sequence by id', async () => {
   const sequence = await agent
     .post('/api/v1/sequences')
-    .send({ userId: '1', sequence: ['Bb', 'D', 'A'] });
+    .send({ userId: '1', sequence: ['A', 'B', 'C'] });
   
-  console.log(sequence.id);
-  sequence.body.sequence = ['Bb', 'F', 'C'];
-
-  const res = await request(app).put(`/api/v1/sequences/${sequence.body.id}`);
-  expect(res.body).toEqual({ id: '6', userId: 1, sequence: ['Bb', 'F', 'C'] });
+  console.log('line 84', sequence.body.id);
+  sequence.body.sequence = ['A', 'B', 'D'];
+  
+  const res = await request(app).patch(`/api/v1/sequences/${sequence.body.id}`)
+    .send(sequence.body);
+  expect(res.body).toEqual({ id: '6', userId: 1, sequence: ['A', 'B', 'D'] });
 });
 
 it('deletes a sequence by id', async () => {

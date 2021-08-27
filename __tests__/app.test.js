@@ -75,3 +75,12 @@ it('finds a sequence by id', async () => {
   const res = await request(app).get(`/api/v1/sequences/${sequence.body.id}`);
   expect(res.body).toEqual({ id: '5', userId: 2, sequence: ['Bb', 'F', 'C'] });
 });
+
+it('deletes a sequence by id', async () => {
+  const sequence = await agent
+    .post('/api/v1/sequences')
+    .send({ userId: '1', sequence: ['J', 'Q', 'A'] });
+
+  const res = await request(app).delete(`/api/v1/sequences/${sequence.body.id}`);
+  expect(res.body).toEqual({ id: '6', userId: 1, sequence: ['J', 'Q', 'A'] });
+});

@@ -17,7 +17,7 @@ jobs:
     - run: npm test
       env:
         CI: true
-        DATABASE_URL: postgres://eytczxrzhmoniw:fcd7850fc69243661fd35b263d8e3764625de324cedb6723ced6288c0d87dbe6@ec2-54-158-232-223.compute-1.amazonaws.com:5432/dcgdap6q7fi04i
+        DATABASE_URL: postgres://alchemy:alchemy@postgres:5432/alchemy
         SALT_ROUNDS: 8
         APP_SECRET: someSecret
        

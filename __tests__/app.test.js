@@ -24,8 +24,6 @@ describe('demo routes', () => {
     expect(res.body).toEqual({ id: '1', username: 'bill' });
   });
 
-
-
   it('login a user', async () => {
     const res = await agent
       .post('/api/v1/auth/login')

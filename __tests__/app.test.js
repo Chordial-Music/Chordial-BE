@@ -67,6 +67,16 @@ it('finds all sequences', async () => {
   ]);
 });
 
+it('finds all sequences by username', async () => {
+  const username = 'bill';
+  const res = await request(app).get(`/api/v1/sequences/user/${username}`);
+  expect(res.body).toEqual([
+    { id: '2', userId: 2, sequence: ['Bb', 'F', 'C'] },
+    { id: '2', userId: 2, sequence: ['Bb', 'F', 'C'] }
+  ]);
+});
+
+
 it('finds a sequence by id', async () => {
   const sequence = await agent
     .post('/api/v1/sequences')
@@ -80,10 +90,10 @@ it('updates a sequence by id', async () => {
   const sequence = await agent
     .post('/api/v1/sequences')
     .send({ userId: '1', sequence: ['A', 'B', 'C'] });
-  
+
   console.log('line 84', sequence.body.id);
   sequence.body.sequence = ['A', 'B', 'D'];
-  
+
   const res = await request(app).patch(`/api/v1/sequences/${sequence.body.id}`)
     .send(sequence.body);
   expect(res.body).toEqual({ id: '6', userId: 1, sequence: ['A', 'B', 'D'] });
